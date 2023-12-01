@@ -11,6 +11,10 @@ router.get("/login", moduleController.login_get);
 router.post("/login", moduleController.login_post);
 
 // My Profile
-router.get("/profile", moduleController.profile);
+router.get("/profile/:id", moduleController.profile);
+
+//create Job
+router.get("/create", moduleController.create_get);
+router.post("/create", moduleController.create_post);
 
 module.exports = router;
