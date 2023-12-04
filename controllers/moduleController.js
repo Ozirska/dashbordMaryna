@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, "net ninja secret", {
+  return jwt.sign({ id }, "dashboard secret", {
     expiresIn: maxAge,
   });
 };
@@ -69,17 +69,18 @@ module.exports.login_post = async (req, res) => {
 };
 
 module.exports.profile = async (req, res) => {
-  try {
-    let userId = req.user._id;
+  res.render("/profile");
+  // try {
+  //   let userId = req.user._id;
 
-    let user = await User.findById(userId);
-    console.log({ userData: user });
-    res.status(200).json({ user });
-  } catch (err) {
-    console.log({ error: err });
-    // Handle errors appropriately
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+  //   let user = await User.findById(userId);
+  //   console.log({ userData: user });
+  //   res.status(200).json({ user });
+  // } catch (err) {
+  //   console.log({ error: err });
+  //   // Handle errors appropriately
+  //   res.status(500).json({ error: "Internal Server Error" });
+  // }
 };
 
 ///////////
