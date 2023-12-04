@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
+const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 
 //midleware
 
@@ -18,15 +19,16 @@ app.set("view engine", "ejs");
 
 mongoose
   .connect(`${process.env.URL}`)
-  .then(() => console.log("DB conectes"))
+  .then(() => console.log("DB connected"))
   .then(() => {
-    let PORT = process.env.PORT || 3001;
+    const PORT = process.env.PORT || 3001;
     app.listen(PORT, () => {
       console.log(`SERVER START ON PORT ${PORT}`);
     });
   })
-  .catch((err) => console.error("Error conecting to the database:", err));
+  .catch((err) => console.error("Error connecting to the database:", err));
 
 //routes
+app.get("*", checkUser);
 app.get("/", (req, res) => res.render("home"));
 app.use(authRoutes);
