@@ -64,21 +64,27 @@ userSchema.post("save", function (doc, next) {
 //fire a function before doc saved to db
 userSchema.pre("save", async function (next) {
   try {
-    // Generate a salt
     const salt = await bcrypt.genSalt();
-
-    // Hash the password using the generated salt
     const hashedPassword = await bcrypt.hash(this.password, salt);
-
-    // Set the hashed password to the password field
     this.password = hashedPassword;
-
-    // Continue with the save operation
     next();
   } catch (error) {
     next(error); // Pass any errors to the next middleware
   }
 });
+
+//Static method to login user
+userSchema.statics.login = async function (email, password) {
+  const user = await this.findOne({ email });
+  if (user) {
+    const auth = await bcrypt.compare(password, user.password);
+    if (auth) {
+      return user;
+    }
+    throw Error("incorrect password");
+  }
+  throw Error("incorrect email");
+};
 
 const User = mongoose.model("user", userSchema);
 
