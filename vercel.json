@@ -12,12 +12,6 @@
       "dest": "app.js"
     }
   ],
-  "public": [
-    {
-      "src": "/styles.css",
-      "use": "@vercel/static"
-    }
-  ],
   "env": {
     "VIEWS_PATH": "./views"
   }

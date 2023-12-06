@@ -11,7 +11,7 @@ const path = require("path");
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public/"));
 app.set("views", path.join(__dirname, "views"));
 
 // view engine
