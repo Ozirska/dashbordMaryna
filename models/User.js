@@ -30,14 +30,14 @@ const userSchema = new mongoose.Schema({
       message: "Please enter a valid GitHub link",
     },
   },
-  profilePicture: {
-    data: Buffer,
-    contentType: String,
-  },
-  pdfFile: {
-    data: Buffer,
-    contentType: String,
-  },
+  // profilePicture: {
+  //   data: Buffer,
+  //   contentType: String,
+  // },
+  // pdfFile: {
+  //   data: Buffer,
+  //   contentType: String,
+  // },
   password: {
     type: String,
     required: [true, "Please enter an password"],
@@ -55,12 +55,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// fire a function after do saved to db
-userSchema.post("save", function (doc, next) {
-  console.log("new user was created and saved", doc);
-  next();
-});
-
 //fire a function before doc saved to db
 userSchema.pre("save", async function (next) {
   try {
@@ -71,6 +65,12 @@ userSchema.pre("save", async function (next) {
   } catch (error) {
     next(error); // Pass any errors to the next middleware
   }
+});
+
+// fire a function after do saved to db
+userSchema.post("save", function (doc, next) {
+  console.log("new user was created and saved", doc);
+  next();
 });
 
 //Static method to login user

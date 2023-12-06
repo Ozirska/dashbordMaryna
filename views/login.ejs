@@ -1,49 +1,51 @@
 <form>
-    <h2>Log in</h2>
-    <label for="email">Email Address</label>
-    <input type="text" name="email" required />
-    <div class="email error"></div>
-    <label for="password">Password</label>
-    <input type="password" name="password" required />
-    <div class="password error"></div>
-    <button>Log in</button>
-    <div class="notRegisterd">
-        <p>Not registerd yet ?</p><a href="/signup">Register</a>
-    </div>
+  <h2>Log in</h2>
+  <label for="email">Email Address</label>
+  <input type="text" name="email" required />
+  <div class="email error"></div>
+  <label for="password">Password</label>
+  <input type="password" name="password" required />
+  <div class="password error"></div>
+  <button>Log in</button>
+  <div class="notRegisterd">
+    <p>Not registerd yet ?</p>
+    <a href="/signup">Register</a>
+  </div>
 </form>
 
 <script>
-    const form = document.querySelector("form");
-    const passwordError = document.querySelector(".password.error");
-    const emailError = document.querySelector(".email.error");
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+  const form = document.querySelector("form");
+  const passwordError = document.querySelector(".password.error");
+  const emailError = document.querySelector(".email.error");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-        // reset errors
-        passwordError.textContent = "";
-        emailError.textContent = "";
+    // reset errors
+    passwordError.textContent = "";
+    emailError.textContent = "";
 
-        //get the values
-        const password = form.password.value;
-        const username = form.email.value;
+    //get the values
+    const password = form.password.value;
+    const email = form.email.value;
+    console.log(password, email);
 
-        try {
-            const res = await fetch("/login", {
-                method: "POST",
-                body: JSON.stringify({ email, password }),
-                headers: { "Content-Type": "application/json" },
-            });
-            const data = await res.json();
-            console.log(data);
-            if (data.errors) {
-                passwordError.textContent = data.errors.password;
-                emailError.textContent = data.errors.email;
-            }
-            if (data.user) {
-                location.assign("/");
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    });
+    try {
+      const res = await fetch("/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.errors) {
+        passwordError.textContent = data.errors.password;
+        emailError.textContent = data.errors.email;
+      }
+      if (data.user) {
+        location.assign("/");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
 </script>

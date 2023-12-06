@@ -8,7 +8,7 @@ const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 const path = require("path");
 
 //midleware
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(__dirname + "/public/"));

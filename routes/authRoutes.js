@@ -18,4 +18,7 @@ router.get("/profile", requireAuth, moduleController.profile);
 router.get("/create", requireAuth, moduleController.create_get);
 router.post("/create", moduleController.create_post);
 
+///logout
+router.get("/logout", moduleController.logout_get);
+
 module.exports = router;

@@ -68,19 +68,8 @@ module.exports.login_post = async (req, res) => {
   }
 };
 
-module.exports.profile = async (req, res) => {
-  res.render("/profile");
-  // try {
-  //   let userId = req.user._id;
-
-  //   let user = await User.findById(userId);
-  //   console.log({ userData: user });
-  //   res.status(200).json({ user });
-  // } catch (err) {
-  //   console.log({ error: err });
-  //   // Handle errors appropriately
-  //   res.status(500).json({ error: "Internal Server Error" });
-  // }
+module.exports.profile = (req, res) => {
+  res.render("profile");
 };
 
 ///////////
@@ -121,4 +110,9 @@ module.exports.create_post = async (req, res) => {
     // const errors = handleErrors(err);
     // res.status(400).json({ errors });
   }
+};
+
+module.exports.logout_get = (req, res) => {
+  res.cookie("jwt", "net ninja secret", { maxAge: 1 });
+  res.redirect("/");
 };
