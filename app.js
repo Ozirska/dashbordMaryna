@@ -5,12 +5,14 @@ const authRoutes = require("./routes/authRoutes");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
+const path = require("path");
 
 //midleware
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static("public"));
+app.set("views", path.join(__dirname, "views"));
 
 // view engine
 app.set("view engine", "ejs");
@@ -32,3 +34,5 @@ mongoose
 app.get("*", checkUser);
 app.get("/", (req, res) => res.render("home"));
 app.use(authRoutes);
+
+module.exports = app;
