@@ -10,7 +10,9 @@
     {
       "src": "/.*",
       "dest": "app.js"
-    },
+    }
+  ],
+  "public": [
     {
       "src": "/styles.css",
       "use": "@vercel/static"
