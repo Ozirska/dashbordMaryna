@@ -1,1 +1,99 @@
-<h1>SIGN UP</h1>
+<%- include('partials/header'); -%>
+
+    <form>
+        <h2>Register</h2>
+        <div>
+            <label for="firstname">Firstname</label>
+            <input type="text" name="firstname" required>
+            <div class="firstname error"></div>
+            <label for="lastname">Lastname</label>
+            <input type="text" name="lastname" required>
+            <div class="lastname error"></div>
+        </div>
+        <label for="email">Email</label>
+        <input type="text" name="email" required>
+        <div class="email error"></div>
+        <label for="github">Github</label>
+        <input type="text" name="github" required>
+        <div class="github error"></div>
+        <div class="files">
+            <label for="profilePicture">Profile picture</label>
+            <input type="button" required value="Upload">
+            <div class="profilePicture error"></div>
+            <label for="cv">CV ( PDF )</label>
+            <input type="button" required value="Upload">
+            <div class="cv error"></div>
+        </div>
+        <label for="password">Password</label>
+        <input type="password" name="password">
+        <div class="password error"></div>
+        <label for="confirmPassword">Confirm password</label>
+        <input type="password" name="confirmPassword">
+        <div class="confirmPassword error"></div>
+        <div class="registerBtn">
+            <button>Register</button>
+        </div>
+    </form>
+    <div class="alreadyRegister">
+        <p>Already register ?</p><a href="/login">Login</a>
+    </div>
+
+    <script>
+        const form = document.querySelector("form");
+        const firstnameError = document.querySelector('.firstname.error');
+        const lastnameError = document.querySelector('.lastname.error');
+        const githubError = document.querySelector('.github.error');
+        const profilePictureError = document.querySelector('.profilePicture.error');
+        const cvError = document.querySelector('.cv.error');
+        const emailError = document.querySelector(".email.error");
+        const passwordError = document.querySelector(".password.error");
+        const confirmPasswordError = document.querySelector(".confirmPassword.error");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // reset errors
+            emailError.textContent = "";
+            passwordError.textContent = "";
+            confirmPasswordError.textContent = "";
+            firstnameError.textContent = "";
+            lastnameError.textContent = "";
+            githubError.textContent = "";
+            profilePictureError.textContent = "";
+            cvError.textContent = "";
+
+            //get the values
+            const email = form.email.value;
+            const password = form.password.value;
+            const confirmPassword = form.confirmPassword.value;
+            const firstname = form.firstName.value;
+            const lastname = form.lastName.value;
+            const github = form.gitHub.value;
+            const profilePicture = form.profilePicture.value;
+            const cv = form.pdfFile.value;
+
+            try {
+                const res = await fetch("/signup", {
+                    method: "POST",
+                    body: JSON.stringify({ email, password, confirmPassword, firstName, lastName, gitHub, profilePicture, pdfFile }),
+                    headers: { "Content-Type": "application/json" },
+                });
+                const data = await res.json();
+                console.log(data);
+                if (data.errors) {
+                    emailError.textContent = data.errors.email; 'è'
+                    passwordError.textContent = data.errors.password;
+                    confirmPasswordError.textContent = data.errors.confirmPassword;
+                    firstnameError.textContent = data.errors.firstName;
+                    lastnameError.textContent = data.errors.lastName;
+                    githubError.textContent = data.errors.gitHub;
+                    profilePictureError.textContent = data.errors.profilePicture;
+                    cvError.textContent = data.errors.pdfFile;
+                }
+                if (data.user) {
+                    location.assign("/");
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+    </script>
