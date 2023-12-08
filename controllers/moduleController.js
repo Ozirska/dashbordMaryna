@@ -15,39 +15,11 @@ module.exports.signup_get = (req, res) => {
   res.render("signup");
 };
 
-module.exports.signup_post = async (req, res) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    gitHub,
-    profilePicture,
-    pdfFile,
-    password,
-    confirmPassword,
-  } = req.body;
-
-  try {
-    const user = await User.create({
-      firstName,
-      lastName,
-      email,
-      gitHub,
-      profilePicture,
-      pdfFile,
-      password,
-    });
-
-    const token = createToken(user._id);
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-
-    res.status(201).json({ user: user._id });
-  } catch (err) {
-    console.log({ error: err });
-    // const errors = handleErrors(err);
-    // res.status(400).json({ errors });
-  }
+/////////////test
+module.exports.files_get = (req, res) => {
+  res.render("files");
 };
+
 module.exports.login_get = (req, res) => {
   res.render("login");
 };

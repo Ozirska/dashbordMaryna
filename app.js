@@ -6,6 +6,9 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
 const path = require("path");
+const { handleFileUpload } = require("./upload/signUpload");
+const multer = require("multer");
+const cors = require("cors");
 
 //midleware
 app.use(express.urlencoded({ extended: true }));
@@ -13,6 +16,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(__dirname + "/public/"));
 app.set("views", path.join(__dirname, "views"));
+app.use(cors());
+
+/////////for upload
+app.use(express.json({ limit: "50mb" })); // Adjust the limit accordingly
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use("/uploads", express.static("uploads"));
 
 // view engine
 app.set("view engine", "ejs");
@@ -29,6 +38,15 @@ mongoose
     });
   })
   .catch((err) => console.error("Error connecting to the database:", err));
+
+///////storege
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+// Configure Multer to use the memory storage
+app.use(upload.fields([{ name: "profilePicture" }, { name: "pdfFile" }]));
+
+app.post("/signup", handleFileUpload);
 
 //routes
 app.get("*", checkUser);

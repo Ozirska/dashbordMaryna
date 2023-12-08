@@ -5,7 +5,6 @@ const { requireAuth, checkUser } = require("../middleware/authMiddleware");
 
 // Sign up
 router.get("/signup", moduleController.signup_get);
-router.post("/signup", moduleController.signup_post);
 
 // Login
 router.get("/login", moduleController.login_get);

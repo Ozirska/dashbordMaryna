@@ -1,28 +1,29 @@
 <%- include('partials/header'); -%>
 
-<form>
+<form action="/signup" enctype="multipart/form-data" class="signup_form">
   <h2>Register</h2>
   <div>
-    <label for="firstname">Firstname</label>
-    <input type="text" name="firstname" required />
-    <div class="firstname error"></div>
-    <label for="lastname">Lastname</label>
-    <input type="text" name="lastname" required />
-    <div class="lastname error"></div>
+    <label for="firstName">Firstname</label>
+    <input type="text" name="firstName" required />
+    <div class="firstName error"></div>
+    <label for="lastName">Lastname</label>
+    <input type="text" name="lastName" required />
+    <div class="lastName error"></div>
   </div>
   <label for="email">Email</label>
   <input type="text" name="email" required />
   <div class="email error"></div>
-  <label for="github">Github</label>
-  <input type="text" name="github" required />
-  <div class="github error"></div>
+  <label for="gitHub">Github</label>
+  <input type="text" name="gitHub" required />
+  <div class="gitHub error"></div>
   <div class="files">
     <label for="profilePicture">Profile picture</label>
-    <input type="button" required value="Upload" />
+    <input type="file" name="profilePicture" accept="image/*" required />
     <div class="profilePicture error"></div>
-    <label for="cv">CV ( PDF )</label>
-    <input type="button" required value="Upload" />
-    <div class="cv error"></div>
+
+    <label for="pdfFile">CV ( PDF )</label>
+    <input type="file" required name="pdfFile" accept=".pdf" />
+    <div class="pdfFile error"></div>
   </div>
   <label for="password">Password</label>
   <input type="password" name="password" />
@@ -40,70 +41,31 @@
 </div>
 
 <script>
-  const form = document.querySelector("form");
-  const firstnameError = document.querySelector(".firstname.error");
-  const lastnameError = document.querySelector(".lastname.error");
-  const githubError = document.querySelector(".github.error");
-  const profilePictureError = document.querySelector(".profilePicture.error");
-  const cvError = document.querySelector(".cv.error");
-  const emailError = document.querySelector(".email.error");
-  const passwordError = document.querySelector(".password.error");
-  const confirmPasswordError = document.querySelector(".confirmPassword.error");
+  const form = document.querySelector(".signup_form");
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // reset errors
-    emailError.textContent = "";
-    passwordError.textContent = "";
-    confirmPasswordError.textContent = "";
-    firstnameError.textContent = "";
-    lastnameError.textContent = "";
-    githubError.textContent = "";
-    profilePictureError.textContent = "";
-    cvError.textContent = "";
+    // Create a FormData object
+    const formData = new FormData(form);
 
-    //get the values
-    const email = form.email.value;
-    const password = form.password.value;
-    const confirmPassword = form.confirmPassword.value;
-    const firstname = form.firstName.value;
-    const lastname = form.lastName.value;
-    const github = form.gitHub.value;
-    const profilePicture = form.profilePicture.value;
-    const cv = form.pdfFile.value;
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}: ${value}`);
+    // });
 
     try {
       const res = await fetch("/signup", {
         method: "POST",
-        body: JSON.stringify({
-          email,
-          password,
-          confirmPassword,
-          firstName,
-          lastName,
-          gitHub,
-          profilePicture,
-          pdfFile,
-        }),
-        headers: { "Content-Type": "application/json" },
+        body: formData,
       });
       const data = await res.json();
       console.log(data);
-      if (data.errors) {
-        emailError.textContent = data.errors.email;
-        ("è");
-        passwordError.textContent = data.errors.password;
-        confirmPasswordError.textContent = data.errors.confirmPassword;
-        firstnameError.textContent = data.errors.firstName;
-        lastnameError.textContent = data.errors.lastName;
-        githubError.textContent = data.errors.gitHub;
-        profilePictureError.textContent = data.errors.profilePicture;
-        cvError.textContent = data.errors.pdfFile;
-      }
-      if (data.user) {
+
+      if (data.success) {
         location.assign("/");
       }
     } catch (err) {
+      console.log("ERR LINE64");
       console.log(err);
     }
   });

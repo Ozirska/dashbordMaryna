@@ -30,14 +30,12 @@ const userSchema = new mongoose.Schema({
       message: "Please enter a valid GitHub link",
     },
   },
-  // profilePicture: {
-  //   data: Buffer,
-  //   contentType: String,
-  // },
-  // pdfFile: {
-  //   data: Buffer,
-  //   contentType: String,
-  // },
+  profilePicture: {
+    type: String,
+  },
+  pdfFile: {
+    type: String,
+  },
   password: {
     type: String,
     required: [true, "Please enter an password"],
