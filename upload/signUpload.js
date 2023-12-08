@@ -26,9 +26,6 @@ async function handleFileUpload(req, res) {
     streamifier.createReadStream(profilePictureBuffer);
   const pdfFileStream = streamifier.createReadStream(pdfFileBuffer);
 
-  if (!profilePictureBuffer || !pdfFileBuffer) {
-    return res.status(400).json({ success: false, error: "Invalid Request" });
-  }
   try {
     const profilePictureResult = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
