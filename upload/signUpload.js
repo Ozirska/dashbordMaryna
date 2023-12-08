@@ -14,9 +14,9 @@ const createToken = (id) => {
 };
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
+  cloud_name: "dbsq5nssw",
+  api_key: "884367867213978",
+  api_secret: "99TvMizYKa3yklt35KHbEJ1U18w",
 });
 async function handleFileUpload(req, res) {
   const profilePictureBuffer = req.files.profilePicture[0].buffer;
