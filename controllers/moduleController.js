@@ -15,11 +15,6 @@ module.exports.signup_get = (req, res) => {
   res.render("signup");
 };
 
-/////////////test
-module.exports.files_get = (req, res) => {
-  res.render("files");
-};
-
 module.exports.login_get = (req, res) => {
   res.render("login");
 };
@@ -61,6 +56,7 @@ module.exports.create_post = async (req, res) => {
     origin,
     status,
     coments,
+    userId,
   } = req.body;
 
   try {
@@ -74,6 +70,7 @@ module.exports.create_post = async (req, res) => {
       origin,
       status,
       coments,
+      userId,
     });
 
     res.status(201).json({ job: job._id });

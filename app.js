@@ -18,11 +18,6 @@ app.use(express.static(__dirname + "/public/"));
 app.set("views", path.join(__dirname, "views"));
 app.use(cors());
 
-/////////for upload
-app.use(express.json({ limit: "50mb" })); // Adjust the limit accordingly
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
-app.use("/uploads", express.static("uploads"));
-
 // view engine
 app.set("view engine", "ejs");
 
@@ -43,7 +38,7 @@ mongoose
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// Configure Multer to use the memory storage
+// Configure Multer to use the memory storage !!!
 app.use(upload.fields([{ name: "profilePicture" }, { name: "pdfFile" }]));
 
 app.post("/signup", handleFileUpload);

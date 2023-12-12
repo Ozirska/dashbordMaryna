@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 
 const jobSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
   jobTitle: {
     type: String,
     required: [true, "Please enter job title"],
@@ -24,7 +28,7 @@ const jobSchema = new mongoose.Schema({
     type: String,
   },
   address: {
-    data: String,
+    type: String,
   },
 
   origin: {
@@ -35,7 +39,7 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please choose status"],
   },
-  coments: {
+  comments: {
     type: String,
   },
 });

@@ -14,8 +14,8 @@ router.post("/login", moduleController.login_post);
 router.get("/profile", requireAuth, moduleController.profile);
 
 //create Job
-router.get("/create", requireAuth, moduleController.create_get);
-router.post("/create", moduleController.create_post);
+router.get("/createJob", requireAuth, moduleController.create_get);
+router.post("/createJob", moduleController.create_post);
 
 ///logout
 router.get("/logout", moduleController.logout_get);
