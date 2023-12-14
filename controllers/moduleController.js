@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Job = require("../models/Job");
 const jwt = require("jsonwebtoken");
+const { handleUserErrors } = require("./errorController");
 
 ///////token
 
@@ -29,9 +30,8 @@ module.exports.login_post = async (req, res) => {
     console.log({ msg: "USER LOGIN" });
     res.status(200).json({ user: user._id });
   } catch (err) {
-    console.log({ error: err });
-    //  const errors = handleErrors(err);
-    //  res.status(400).json({ errors });
+    const errors = handleUserErrors(err);
+    res.status(400).json({ errors });
   }
 };
 
@@ -79,6 +79,10 @@ module.exports.create_post = async (req, res) => {
     // const errors = handleErrors(err);
     // res.status(400).json({ errors });
   }
+};
+
+module.exports.jobDetails_get = (req, res) => {
+  res.render("jobDetails");
 };
 
 module.exports.logout_get = (req, res) => {
