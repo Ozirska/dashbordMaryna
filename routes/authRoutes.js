@@ -17,6 +17,9 @@ router.get("/profile", requireAuth, moduleController.profile);
 router.get("/createJob", requireAuth, moduleController.create_get);
 router.post("/createJob", moduleController.create_post);
 
+//jobDetails
+router.get("/jobDetails", requireAuth, moduleController.jobDetails_get);
+
 ///logout
 router.get("/logout", moduleController.logout_get);
 
