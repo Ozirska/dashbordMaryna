@@ -43,6 +43,8 @@ const userSchema = new mongoose.Schema({
   },
   confirmPassword: {
     type: String,
+    required: [true, "Please confirm the password"],
+
     required: [false, "Please confirm the password"],
     validate: {
       validator: function (value) {
@@ -59,6 +61,7 @@ userSchema.pre("save", async function (next) {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(this.password, salt);
     this.password = hashedPassword;
+
     next();
   } catch (error) {
     next(error); // Pass any errors to the next middleware

@@ -54,6 +54,7 @@
   const emailError = document.querySelector(".email.error");
   const gitHubError = document.querySelector(".gitHub.error");
   const profilePictureError = document.querySelector(".profilePicture.error");
+  const pdfFileError = document.querySelector(".pdfFile.error");
   const passwordError = document.querySelector(".password.error");
   const confirmPasswordError = document.querySelector(".confirmPassword.error");
   //clean errors
@@ -81,12 +82,14 @@
         body: formData,
       });
       const data = await res.json();
-      console.log(data);
+      console.log("LINE84");
+      console.log(data.errors);
 
       if (data.errors) {
         firstNameError.textContent = data.errors.firstName;
         lastNameError.textContent = data.errors.lastName;
         profilePictureError.textContent = data.errors.profilePicture;
+        pdfFileError.textContent = data.errors.pdfFile;
         confirmPasswordError.textContent = data.errors.confirmPassword;
         gitHubError.textContent = data.errors.gitHub;
         emailError.textContent = data.errors.email;
