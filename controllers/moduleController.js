@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const Job = require("../models/Job");
 const jwt = require("jsonwebtoken");
-const { handleUserErrors } = require("./errorController");
+const { handleJobErrors } = require("./errorController");
 
 ///////token
 
@@ -55,7 +55,7 @@ module.exports.create_post = async (req, res) => {
     address,
     origin,
     status,
-    coments,
+    comments,
     userId,
   } = req.body;
 
@@ -69,15 +69,22 @@ module.exports.create_post = async (req, res) => {
       address,
       origin,
       status,
-      coments,
+      comments,
       userId,
     });
 
     res.status(201).json({ job: job._id });
   } catch (err) {
     console.log({ error: err });
-    // const errors = handleErrors(err);
-    // res.status(400).json({ errors });
+
+    // Check if the error is a Mongoose validation error
+    if (err.name === "ValidationError") {
+      const errors = handleJobErrors(err);
+      res.status(400).json({ errors });
+    } else {
+      // Handle other types of errors
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   }
 };
 
