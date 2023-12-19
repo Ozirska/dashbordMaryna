@@ -88,11 +88,58 @@ module.exports.create_post = async (req, res) => {
   }
 };
 
-module.exports.jobDetails_get = (req, res) => {
-  res.render("jobDetails");
+module.exports.logout_get = (req, res) => {
+  res.cookie("jwt", "dashboard secret", { maxAge: 1 });
+  res.redirect("/");
 };
 
-module.exports.logout_get = (req, res) => {
-  res.cookie("jwt", "net ninja secret", { maxAge: 1 });
-  res.redirect("/");
+module.exports.renderJob_get = async (req, res) => {
+  const note = await Job.findById({ _id: req.params.id });
+
+  if (note) {
+    res.render("jobDetails", { noteID: req.params.id, note });
+  } else {
+    res.send("Something went wrong, no note found");
+  }
+};
+
+module.exports.deleteJob_delete = async (req, res) => {
+  console.log("DELETE ID");
+  console.log(req.params.id);
+  try {
+    await Job.deleteOne({ _id: req.params.id });
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.updateJob_get = async (req, res) => {
+  const note = await Job.findById({ _id: req.params.id });
+
+  if (note) {
+    res.render("updateJob", { noteID: req.params.id, note });
+  } else {
+    res.send("Something went wrong, no note found");
+  }
+};
+
+module.exports.updateJob_put = async (req, res) => {
+  try {
+    await Job.findByIdAndUpdate(req.params.id, {
+      jobTitle: req.body.jobTitle,
+      company: req.body.company,
+      status: req.body.status,
+      comments: req.body.comments,
+      webiste: req.body.website,
+      employerName: req.body.employerName,
+      employerEmail: req.body.employerEmail,
+      employerPhone: req.body.employerPhone,
+      employerAddress: req.body.employerAddress,
+      origin: req.body.origin,
+    });
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
 };

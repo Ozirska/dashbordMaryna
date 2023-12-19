@@ -18,7 +18,11 @@ router.get("/createJob", requireAuth, moduleController.create_get);
 router.post("/createJob", moduleController.create_post);
 
 //jobDetails
-router.get("/jobDetails", requireAuth, moduleController.jobDetails_get);
+
+router.get("/jobDetails/:id", requireAuth, moduleController.renderJob_get);
+router.delete("/delete/:id", requireAuth, moduleController.deleteJob_delete);
+router.get("/updateJob/:id", requireAuth, moduleController.updateJob_get);
+router.put("/updateJob/:id", requireAuth, moduleController.updateJob_put);
 
 ///logout
 router.get("/logout", moduleController.logout_get);
