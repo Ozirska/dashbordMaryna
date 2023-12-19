@@ -26,9 +26,11 @@ const jobSchema = new mongoose.Schema({
   },
   phone: {
     type: String,
+    required: [true, "Please enter phone"],
   },
   address: {
     type: String,
+    required: [true, "Please enter address"],
   },
 
   origin: {

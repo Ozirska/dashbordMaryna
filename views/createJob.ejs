@@ -1,4 +1,5 @@
 <%- include('partials/header'); -%>
+
   <h1 class="create_title">Here you can create a job note</h1>
 
   <div class="home">
@@ -82,3 +83,145 @@
       }
     });
   </script>
+=======
+
+<h1 class="create_title">Create Job</h1>
+
+<div class="home">
+  <p class="back_dashboard"><span>&#60;</span><a href="/"> Dashboard</a></p>
+</div>
+
+<form action="/createJob" class="createJob_form">
+  <label for="jobTitle">jobTitle</label>
+  <input type="text" name="jobTitle" />
+  <div class="jobTitle error"></div>
+
+  <label for="website">Website</label>
+  <input type="text" name="website" />
+  <div class="website error"></div>
+  <br />
+  <h4>Employer's contact</h4>
+  <br />
+
+  <label for="employerName">Name</label>
+  <input type="text" name="employerName" />
+  <div class="employerName error"></div>
+
+  <label for="email">Email of contact</label>
+  <input type="text" name="email" />
+  <div class="email error"></div>
+
+  <label for="phone">Phone</label>
+  <input type="text" name="phone" />
+  <div class="phone error"></div>
+
+  <label for="address">Address</label>
+  <input type="text" name="address" />
+  <div class="address error"></div>
+
+  <label for="origin">Origin:</label>
+  <select id="origin" name="origin">
+    <option value="Candidature spontanée" selected>
+      Candidature spontanée
+    </option>
+    <option value="Job offer.">Job offer.</option>
+  </select>
+  <div class="origin error"></div>
+
+  <label for="status">Status</label>
+  <select id="status" name="status">
+    <option value="Interested" selected>Interested</option>
+    <option value="CV sent">CV sent</option>
+    <option value="Negative">Negative</option>
+    <option value="Interview">Interview</option>
+  </select>
+  <div class="status error"></div>
+
+  <br />
+  <label for="comments">Comments</label>
+  <input type="text" name="comments" />
+  <div class="comments error"></div>
+
+  <button>Save</button>
+</form>
+
+<script>
+  const form = document.querySelector(".createJob_form");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    ///////errors
+    const jobTitleError = document.querySelector(".jobTitle.error");
+    const websiteError = document.querySelector(".website.error");
+    const emailError = document.querySelector(".email.error");
+    const employerNameError = document.querySelector(".employerName.error");
+    const phoneError = document.querySelector(".phone.error");
+    const addressError = document.querySelector(".address.error");
+    const originError = document.querySelector(".origin.error");
+    const statusError = document.querySelector(".status.error");
+
+    // clean errors
+    jobTitleError.textContent = "";
+    websiteError.textContent = "";
+    emailError.textContent = "";
+    phoneError.textContent = "";
+    addressError.textContent = "";
+    originError.textContent = "";
+    statusError.textContent = "";
+
+    // Create a FormData object
+
+    // const formData = new FormData(form);
+
+    ////////////////////
+    const jobTitle = form.jobTitle.value;
+    const website = form.website.value;
+    const employerName = form.employerName.value;
+    const email = form.email.value;
+    const phone = form.phone.value;
+    const address = form.address.value;
+    const origin = form.origin.value;
+    const status = form.status.value;
+    const comments = form.comments.value;
+
+    // formData.append("userId", "<%= user._id %>");
+
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}: ${value}`);
+    // });
+
+    try {
+      const res = await fetch("/createJob", {
+        method: "POST",
+        body: JSON.stringify({
+          jobTitle,
+          website,
+          employerName,
+          email,
+          phone,
+          address,
+          origin,
+          status,
+          comments,
+          userId: "<%= user._id %>",
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+
+      if (data.errors) {
+        emailError.textContent = data.errors.email;
+        jobTitleError.textContent = data.errors.jobTitle;
+        websiteError.textContent = data.errors.website;
+        employerNameError.textContent = data.errors.employerName;
+        phoneError.textContent = data.errors.phone;
+        addressError.textContent = data.errors.address;
+        originError.textContent = data.errors.origin;
+        statusError.textContent = data.errors.status;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+</script>
