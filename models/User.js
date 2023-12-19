@@ -43,7 +43,6 @@ const userSchema = new mongoose.Schema({
   },
   confirmPassword: {
     type: String,
-    required: [true, "Please confirm the password"],
 
     required: [false, "Please confirm the password"],
     validate: {
