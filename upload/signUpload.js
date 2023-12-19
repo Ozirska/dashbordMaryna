@@ -36,6 +36,11 @@ function validateUserData(req) {
     errors.pdfFile = "Incorrect pdfFile";
   }
 
+  ///////////
+  if (req.files.confirmPassword !== req.files.password) {
+    errors.confirmPassword = "Password not match";
+  }
+
   // Check for required fields
   const requiredFields = [
     "firstName",
@@ -52,7 +57,7 @@ function validateUserData(req) {
     email: "Email is requared",
     password: "Password is requared",
     gitHub: "GitHub link is requared",
-    confirmPassword: "Please, confirm password",
+    confirmPassword: "Password not match",
   };
 
   requiredFields.forEach((field) => {
@@ -93,11 +98,11 @@ function validateUserData(req) {
 
 // Handle file upload
 async function handleFileUpload(req, res) {
-  const validationErrors = validateUserData(req);
-  if (Object.keys(validationErrors).length > 0) {
-    // Return the validation errors
-    return res.status(400).json({ errors: validationErrors });
-  }
+  // const validationErrors = validateUserData(req);
+  // if (Object.keys(validationErrors).length > 0) {
+  //   // Return the validation errors
+  //   return res.status(400).json({ errors: validationErrors });
+  // }
   try {
     const profilePictureBuffer = req.files.profilePicture[0].buffer;
     const pdfFileBuffer = req.files.pdfFile[0].buffer;
