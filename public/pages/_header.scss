@@ -1,0 +1,40 @@
+nav {
+  background: #858181;
+  height: 3.4rem;
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    a {
+      color: rgb(73, 46, 227);
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background: #c2bfbf;
+        color: #000;
+      }
+    }
+  }
+}
+
+.welcome {
+  color: rgb(0, 1, 0);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-right: 2rem;
+}
+
+.logout {
+  color: red;
+}
+
+.create {
+  position: absolute;
+  left: 0;
+}
