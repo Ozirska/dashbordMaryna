@@ -1,0 +1,61 @@
+<a href="/createJob" class="createJob_btn">Create a job</a>
+
+<form class="filter_form" method="GET" action="/dashboard">
+    <label for="filter">Filter by:</label>
+    <select id="filter" name="filter">
+        <option value="">Select filter...</option>
+        <option value="status">Status</option>
+        <option value="date">Date</option>
+    </select>
+
+    <label for="order">Order:</label>
+    <select id="order" name="order">
+        <option value="">Select order...</option>
+        <option value="asc.">Asc.</option>
+        <option value="desc.">Desc.</option>
+    </select>
+</form>
+
+<ul>
+          <% jobs.forEach(note=> { %>
+            <li>
+              <div class="jobCard">
+                <h5>
+                  <%= note.status %>
+                </h5>
+                <h2>
+                  <%= note.jobTitle %>
+                </h2>
+                <h3>
+                  <%= note.company %>
+                </h3>
+                <p>
+  <% let date = new Date(note.createdAt); %>
+  <% if (date instanceof Date && !isNaN(date)) { %>
+    <%= date.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) %>
+  <% } else { %>
+    Invalid Date
+  <% } %>
+</p>
+
+                <a href="/jobDetails/<%= note.id %>">See more</a>
+            </li>
+            </div>
+            <% }) %>
+        </ul>
+</div>
+
+<script>
+    const filterElement = document.getElementById('filter');
+    const orderElement = document.getElementById('order');
+    const form = document.querySelector('.filter_form');
+
+    function checkAndSubmit() {
+        if (filterElement.value && orderElement.value) {
+            form.submit();
+        }
+    }
+
+    filterElement.addEventListener('change', checkAndSubmit);
+    orderElement.addEventListener('change', checkAndSubmit);
+</script>

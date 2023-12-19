@@ -3,6 +3,10 @@
     <header>
         <% if (user) { %>
             <div class="create"><a href="/createJob">Create a Job</a></div>
+
+
+            <%- include('dashboard'); -%>
+
             <% } else { %>
                 <div class="home">
                     <h1>Dashboard</h1>

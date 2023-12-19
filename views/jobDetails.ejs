@@ -1,2 +1,34 @@
 <%- include('partials/header'); -%>
-<h1>JOB DETAILS</h1>
+
+<div class="nav">
+  <a href="/">Back to dashboard</a>
+</div>
+<div class="RenderJob">
+  <h1><%= note.jobTitle %></h1>
+  <h2>Company :</h2>
+  <%= note.company %>
+  <h2>Website :</h2>
+  <%= note.website %>
+  <hr />
+  <h2>Name</h2>
+  <%= note.employerName %>
+  <h2>Email</h2>
+  <%= note.email %>
+  <h2>Phone</h2>
+  <%= note.phone %>
+  <h2>Address</h2>
+  <%= note.address %>
+  <h2>Origin :</h2>
+  <%= note.origin %>
+  <h2>Status :</h2>
+  <%= note.status %>
+  <h2>Comment :</h2>
+  <%= note.comments %>
+  <h2>Created :</h2>
+  <% let date=new Date(note.createdAt); %> <%= date.toLocaleDateString('fr-FR',
+  { day: '2-digit' , month: '2-digit' , year: 'numeric' }) %>
+</div>
+<button><a href="/updateJob/<%= noteID %>">Update</a></button>
+<form action="/delete/<%= noteID %>?_method=DELETE" method="POST">
+  <button type="submit">Delete</button>
+</form>
