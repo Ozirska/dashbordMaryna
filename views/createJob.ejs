@@ -11,6 +11,10 @@
   <input type="text" name="jobTitle" />
   <div class="jobTitle error"></div>
 
+  <label for="company">Company</label>
+  <input type="text" name="company" />
+  <div class="company error"></div>
+
   <label for="website">Website</label>
   <input type="text" name="website" />
   <div class="website error"></div>
@@ -68,6 +72,7 @@
 
     ///////errors
     const jobTitleError = document.querySelector(".jobTitle.error");
+    const companyError = document.querySelector(".company.error");
     const websiteError = document.querySelector(".website.error");
     const emailError = document.querySelector(".email.error");
     const employerNameError = document.querySelector(".employerName.error");
@@ -78,6 +83,7 @@
 
     // clean errors
     jobTitleError.textContent = "";
+    companyError.textContent = "";
     websiteError.textContent = "";
     emailError.textContent = "";
     phoneError.textContent = "";
@@ -92,6 +98,7 @@
     ////////////////////
     const jobTitle = form.jobTitle.value;
     const website = form.website.value;
+    const company = form.company.value;
     const employerName = form.employerName.value;
     const email = form.email.value;
     const phone = form.phone.value;
@@ -111,6 +118,7 @@
         method: "POST",
         body: JSON.stringify({
           jobTitle,
+          company,
           website,
           employerName,
           email,
@@ -127,6 +135,7 @@
 
       if (data.errors) {
         emailError.textContent = data.errors.email;
+        companyError.textContent = data.errors.company;
         jobTitleError.textContent = data.errors.jobTitle;
         websiteError.textContent = data.errors.website;
         employerNameError.textContent = data.errors.employerName;

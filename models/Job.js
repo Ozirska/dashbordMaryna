@@ -10,6 +10,10 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter job title"],
   },
+  company: {
+    type: String,
+    required: [true, "Please enter company"],
+  },
   website: {
     type: String,
     required: [true, "Please enter website"],
@@ -43,6 +47,10 @@ const jobSchema = new mongoose.Schema({
   },
   comments: {
     type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 
