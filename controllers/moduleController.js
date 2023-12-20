@@ -48,6 +48,7 @@ module.exports.create_get = (req, res) => {
 module.exports.create_post = async (req, res) => {
   const {
     jobTitle,
+    company,
     website,
     employerName,
     email,
@@ -62,6 +63,7 @@ module.exports.create_post = async (req, res) => {
   try {
     const job = await Job.create({
       jobTitle,
+      company,
       website,
       employerName,
       email,
@@ -131,11 +133,11 @@ module.exports.updateJob_put = async (req, res) => {
       company: req.body.company,
       status: req.body.status,
       comments: req.body.comments,
-      webiste: req.body.website,
+      website: req.body.website,
       employerName: req.body.employerName,
-      employerEmail: req.body.employerEmail,
-      employerPhone: req.body.employerPhone,
-      employerAddress: req.body.employerAddress,
+      email: req.body.email,
+      phone: req.body.phone,
+      address: req.body.address,
       origin: req.body.origin,
     });
     res.redirect("/");

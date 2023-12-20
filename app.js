@@ -9,6 +9,7 @@ const path = require("path");
 const { handleFileUpload } = require("./upload/signUpload");
 const multer = require("multer");
 const cors = require("cors");
+const methodOverride = require("method-override");
 
 //midleware
 app.use(express.urlencoded({ extended: true }));
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + "/public/"));
 app.set("views", path.join(__dirname, "views"));
 app.use(cors());
+app.use(methodOverride("_method"));
 
 // view engine
 app.set("view engine", "ejs");
