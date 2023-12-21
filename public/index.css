@@ -7,9 +7,7 @@
 }
 
 body {
-  background-image: url(./img/background.jpg);
-  background-size: cover;
-  background-position: center;
+  background: rgb(217, 225, 225);
 }
 
 ul {
@@ -262,10 +260,6 @@ h2 {
   height: 5rem;
 }
 
-body {
-  background-color: red;
-}
-
 .home span {
   color: black;
 }
@@ -280,6 +274,10 @@ body {
 h4 {
   font-size: 2rem;
   text-decoration: underline;
+}
+
+.create {
+  margin-top: -2rem;
 }
 
 .createJob_btn {
@@ -309,6 +307,7 @@ form.filter_form {
 .jobCard_container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  margin-top: 5rem;
   gap: 10px;
   list-style: none;
   padding: 0 30px;
@@ -364,4 +363,8 @@ form.filter_form {
 .renderJob {
   text-align: center;
   color: rgb(43, 41, 41);
+}
+
+footer {
+  color: black;
 }/*# sourceMappingURL=index.css.map */
