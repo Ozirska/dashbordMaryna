@@ -24,6 +24,7 @@ form.filter_form {
 .jobCard_container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  margin-top: 5rem;
   gap: 10px;
   list-style: none;
   padding: 0 30px;
@@ -85,4 +86,8 @@ form.filter_form {
 .renderJob {
   text-align: center;
   color: rgb(43, 41, 41);
+}
+
+footer {
+  color: black;
 }
