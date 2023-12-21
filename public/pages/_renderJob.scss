@@ -1,0 +1,88 @@
+.createJob_btn {
+  display: block;
+  margin: 20px auto;
+  font-size: 25px;
+
+  &:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+.page_title {
+  text-align: center;
+  font-size: 30px;
+}
+form.filter_form {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.list_title {
+  margin: 20px 0 13px 0;
+}
+
+.jobCard_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  list-style: none;
+  padding: 0 30px;
+}
+
+.jobCard {
+  height: 130px;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  background-color: rgb(241, 241, 239);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  & > h5 {
+    padding: 0 5px;
+    border-radius: 2px;
+    position: absolute;
+    // background-color: rgb(42, 42, 242);
+    top: -5px;
+    right: 0px;
+  }
+  & > h3 {
+    text-align: left;
+    margin: 8px auto 10px 0;
+  }
+  & > h2 {
+    text-align: left;
+  }
+  & > p {
+    font-size: 10px;
+    text-align: left;
+  }
+  & > a {
+    text-align: right;
+    text-decoration: none;
+    color: blue;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.create {
+  a {
+    position: absolute;
+    top: -6rem;
+    left: 0rem;
+  }
+}
+
+.jobCard {
+  h5 {
+    background-color: rgb(109, 109, 251);
+    color: white;
+  }
+}
+
+.renderJob {
+  text-align: center;
+  color: rgb(43, 41, 41);
+}
